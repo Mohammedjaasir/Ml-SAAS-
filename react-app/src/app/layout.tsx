@@ -16,8 +16,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Asme | Landing Page",
-  description: "Know it then all. Stay updated with the latest news and insights.",
+  title: "ML Viz Lab | Interactive Machine Learning",
+  description: "Master machine learning through high-fidelity interactive visualizations and real-time experiments.",
 };
 
 export default function RootLayout({
