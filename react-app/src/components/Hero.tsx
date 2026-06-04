@@ -8,6 +8,7 @@ export default function Hero() {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoOpacity, setVideoOpacity] = useState(1);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -41,34 +42,77 @@ export default function Hero() {
       </video>
 
       {/* Navbar */}
-      <nav className="relative z-20 px-6 pt-8 pb-4">
-        <div className="liquid-glass rounded-full max-w-4xl mx-auto px-6 py-2 flex justify-between items-center">
+      <nav className="relative z-50 px-6 pt-8 pb-4 w-full max-w-5xl mx-auto">
+        <div className="backdrop-blur-xl bg-black/40 border border-white/10 rounded-2xl px-6 py-3 flex justify-between items-center shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:border-white/15">
           {/* Left */}
           <div className="flex items-center gap-3">
-            <Globe className="w-6 h-6 text-white" />
-            <span className="text-white font-semibold text-lg tracking-tight">ML <span className="text-white/60 font-light italic">Viz Lab</span></span>
-            <div className="hidden md:flex gap-8 ml-8">
-              <a href="#" className="text-white/80 hover:text-white text-sm font-medium transition-colors">Features</a>
-              <a href="#" className="text-white/80 hover:text-white text-sm font-medium transition-colors">Pricing</a>
-              <a href="#" className="text-white/80 hover:text-white text-sm font-medium transition-colors">About</a>
+            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-white/30 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-white relative z-10 group-hover:scale-110 transition-transform duration-300">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-amber-400 rounded-full animate-ping"></span>
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+            </div>
+            <div className="flex flex-col cursor-pointer">
+              <span className="text-white font-extrabold text-sm tracking-wider uppercase leading-none">ML VIZ</span>
+              <span className="text-white/40 font-mono text-[9px] tracking-widest uppercase mt-1">LAB_ENV.v1.2</span>
+            </div>
+            
+            {/* Desktop Menu Items */}
+            <div className="hidden md:flex gap-1 ml-8 relative bg-white/5 border border-white/5 rounded-full p-1">
+              <a href="#" className="px-4 py-1.5 rounded-full text-white/70 hover:text-white text-xs font-semibold tracking-wide transition-all hover:bg-white/5">Features</a>
+              <a href="#" className="px-4 py-1.5 rounded-full text-white/70 hover:text-white text-xs font-semibold tracking-wide transition-all hover:bg-white/5">Curriculum</a>
+              <a href="#" className="px-4 py-1.5 rounded-full text-white/70 hover:text-white text-xs font-semibold tracking-wide transition-all hover:bg-white/5">Playground</a>
+              <a href="#" className="px-4 py-1.5 rounded-full text-white/70 hover:text-white text-xs font-semibold tracking-wide transition-all hover:bg-white/5">About</a>
             </div>
           </div>
 
-          {/* Right */}
-          <div className="flex items-center gap-4">
-            <button className="text-white text-sm font-medium hover:text-white/80 transition-colors">Sign Up</button>
-            <button className="liquid-glass rounded-full px-6 py-2 text-white text-sm font-medium hover:bg-white/5 transition-colors">
-              Login
-            </button>
+          {/* Right Desktop Actions */}
+          <div className="hidden md:flex items-center gap-3">
+            <button className="text-white/60 hover:text-white text-xs font-semibold tracking-wider uppercase transition-colors px-3 py-1.5">Sign Up</button>
+            <a href="/app.html" className="group/btn relative px-5 py-2.5 rounded-full overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-300 bg-white text-black font-semibold text-xs tracking-wider uppercase flex items-center gap-2 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]">
+              Launch App
+              <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-300" />
+            </a>
           </div>
+
+          {/* Hamburger button on mobile */}
+          <button 
+            className="md:hidden text-white/80 hover:text-white p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            ) : (
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {mobileMenuOpen && (
+          <div className="absolute top-[calc(100%+8px)] left-6 right-6 z-40 backdrop-blur-xl bg-black/90 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 shadow-2xl animate-[fadeIn_0.2s_ease-out]">
+            <a href="#" className="text-white/80 hover:text-white text-sm font-semibold tracking-wide" onClick={() => setMobileMenuOpen(false)}>Features</a>
+            <a href="#" className="text-white/80 hover:text-white text-sm font-semibold tracking-wide" onClick={() => setMobileMenuOpen(false)}>Curriculum</a>
+            <a href="#" className="text-white/80 hover:text-white text-sm font-semibold tracking-wide" onClick={() => setMobileMenuOpen(false)}>Playground</a>
+            <a href="#" className="text-white/80 hover:text-white text-sm font-semibold tracking-wide" onClick={() => setMobileMenuOpen(false)}>About</a>
+            <hr className="border-white/10 my-1" />
+            <div className="flex flex-col gap-3">
+              <button className="text-white/80 hover:text-white text-sm font-semibold py-2">Sign Up</button>
+              <a href="/app.html" className="bg-white text-black text-center py-2.5 rounded-xl font-bold text-sm tracking-wide hover:bg-white/90 transition-colors">
+                Launch App
+              </a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center -translate-y-[5%]">
         {/* Heading */}
-        <h1 className="text-7xl md:text-8xl lg:text-9xl text-white tracking-tight whitespace-nowrap font-serif">
-          Learn ML <em className="italic">visually</em>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl text-white tracking-tight font-sans font-black uppercase select-none leading-none">
+          Learn ML <span className="font-serif font-light italic lowercase text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-amber-500">visually</span>
         </h1>
 
         {/* Email Input */}

@@ -13,8 +13,20 @@ export default function AboutSection() {
       ref={ref}
       className="bg-black pt-32 md:pt-44 pb-10 md:pb-14 px-6 overflow-hidden relative"
     >
-      {/* Subtle radial gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none" />
+      {/* Premium background grid */}
+      <div 
+        className="absolute inset-0 opacity-40 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 80%)'
+        }}
+      />
+
+      {/* Glowing background orbs */}
+      <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-cyan-500/10 to-teal-500/5 blur-[120px] pointer-events-none animate-pulse" />
+      <div className="absolute bottom-0 -right-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-amber-500/10 to-transparent blur-[150px] pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Label */}

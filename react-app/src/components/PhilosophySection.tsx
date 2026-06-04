@@ -9,8 +9,22 @@ export default function PhilosophySection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section ref={ref} className="bg-black py-28 md:py-40 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section ref={ref} className="bg-black py-28 md:py-40 px-6 overflow-hidden relative">
+      {/* Premium background grid */}
+      <div 
+        className="absolute inset-0 opacity-40 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 80%)'
+        }}
+      />
+
+      {/* Glowing background orbs */}
+      <div className="absolute top-1/3 -left-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-amber-500/10 to-transparent blur-[150px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 40 }}

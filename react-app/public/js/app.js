@@ -366,6 +366,14 @@ function initApp() {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       navigate(a.dataset.page);
+      
+      // Close sidebar on mobile after navigating
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        const menuBtn = document.getElementById('menu-toggle');
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      }
     });
   });
 
@@ -373,9 +381,22 @@ function initApp() {
   const menuBtn = document.getElementById('menu-toggle');
   const sidebar = document.querySelector('.sidebar');
   if (menuBtn && sidebar) {
-    menuBtn.addEventListener('click', () => {
+    menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = sidebar.classList.toggle('open');
       menuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  // Close sidebar on mobile when clicking main content
+  const mainContent = document.querySelector('.main-content');
+  if (mainContent) {
+    mainContent.addEventListener('click', () => {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 

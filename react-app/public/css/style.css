@@ -1333,7 +1333,7 @@ select:focus {
 .page-content > *:nth-child(5) { animation-delay: 0.28s; }
 .page-content > *:nth-child(6) { animation-delay: 0.35s; }
 
-/* â•â• Tooltip â•â• */
+/* —— Tooltip —— */
 .tooltip {
   position: absolute;
   background: rgba(7,11,20,0.97);
@@ -1351,21 +1351,111 @@ select:focus {
   line-height: 1.5;
 }
 
-/* â•â• Responsive â•â• */
+/* —— Responsive —— */
+#menu-toggle {
+  display: none;
+}
+
 @media (max-width: 1200px) {
   .viz-layout { grid-template-columns: 240px 1fr; }
   .viz-info-panel { display: none; }
   .topbar-search { display: none; }
 }
 
+@media (max-width: 1024px) {
+  /* Show viz info panel below chart instead of completely hiding it */
+  .viz-layout { grid-template-columns: 1fr !important; }
+  .viz-info-panel {
+    display: flex !important;
+    flex-direction: column;
+    gap: 14px;
+    grid-column: span 1 !important;
+  }
+}
+
 @media (max-width: 900px) {
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .main-content { margin-left: 0; padding: 20px 20px; padding-top: calc(var(--topbar-height) + 20px); }
-  .topbar { left: 0; padding: 0 20px; }
-  .viz-layout { grid-template-columns: 1fr; }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 380px; }
-  .dashboard-grid { grid-template-columns: 1fr 1fr; }
+  html, body, #app {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  #menu-toggle {
+    display: flex;
+  }
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 16px;
+    padding-top: calc(var(--topbar-height) + 16px);
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+  }
+  .topbar {
+    left: 0;
+    padding: 0 16px;
+  }
+  .viz-layout {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .viz-controls, .viz-canvas-wrapper, .viz-info-panel, .glass-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .viz-canvas-wrapper {
+    height: 320px !important;
+  }
+  .page-content canvas {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Make all inline grid-template-columns layouts responsive (except progress indicators L1-L16) */
+  .page-content [style*="display: grid"]:not([style*="repeat(16"]),
+  .page-content [style*="display:grid"]:not([style*="repeat(16"]) {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Make all inline flex layouts responsive where they would overflow */
+  .page-content .page-header[style*="display: flex"],
+  .page-content .page-header[style*="display:flex"] {
+    flex-direction: column !important;
+  }
+  .page-content .page-header > div {
+    flex: 1 !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    padding: 20px !important;
+  }
+  .page-content .page-header > div:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Override inline h2 font size in page-header for dashboard hero */
+  .page-content h2[style*="font-size: 3.2rem"],
+  .page-content h2[style*="font-size:3.2rem"] {
+    font-size: 2.0rem !important;
+  }
 }
 
 @media (max-width: 600px) {

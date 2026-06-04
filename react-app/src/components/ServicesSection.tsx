@@ -29,8 +29,19 @@ export default function ServicesSection() {
       ref={ref}
       className="bg-black py-28 md:py-40 px-6 overflow-hidden relative"
     >
-      {/* Subtle radial gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.02)_0%,_transparent_60%)] pointer-events-none" />
+      {/* Premium background grid */}
+      <div 
+        className="absolute inset-0 opacity-40 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)',
+          backgroundSize: '24px 24px',
+          maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 80%)'
+        }}
+      />
+
+      {/* Glowing background orbs */}
+      <div className="absolute top-1/2 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-indigo-500/10 to-transparent blur-[120px] pointer-events-none animate-pulse" />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header Row */}
